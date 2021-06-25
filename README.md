@@ -40,12 +40,12 @@ resume shall include but not limited to following content:
 * Keep the revision history of development well organized with git.
 * Write a .gitignore that is suitable for your project development.
 * Write shell scripts to build the project, start local debug environment,  
-  or deploy to a production environment.
+  or (optional) deploy to a production environment.
   
 ### 3.2 Feature requirements
 
 * Typescript shall be used as the development language
-* React or React based framework shall be used
+* React or React based framework (antd, umi, next.js or any other you know) shall be used
 * All object used in source codes shall have corresponding  
   type defined, e.g: a typescript interface describe the resume data object:
 
@@ -80,17 +80,17 @@ resume shall include but not limited to following content:
   * you can use mockjs or related mock framework to intercept the ajax requests and  
     return the mock data when using local development environment
   * (optional) write a simple backend http service to return the resume data.  
-    you can write the http server with any lanugage and framework, e.g.:  
-    pytnon flask, nodejs, perl, golang, java, php-fpm, etc.
+    you can write the http server with any language and framework, e.g.,:  
+    python flask, nodejs, perl, golang, java, php-fpm, etc.
   * (optional) use a database to store the resume data, you can use  
-    any database, such as mysql, postgresql, monodb, redis, rocksdb,  
-    elapsticsearch etc, the simple http server above shall read the  
+    any database, such as mysql, postgresql, mongodb, redis, rocksdb,  
+    Elasticsearch. the simple http server above shall read the  
     data from the database.
 
-* The "working experience" could be presentd in time sequencing order (most early first)  
+* The "working experience" could be presented in time sequencing order (most early first)  
   or reversed time order (most recent first) dynamically, by turning on/off a switch, or click a button.
 
-* Add a icon buttion with "back to top" function. The page will scroll to very beginning after click it.
+* Add an icon button with "back to top" function. The page will scroll to very beginning after click it.
 
 ### 3.3 Deploy requirements
 
