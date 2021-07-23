@@ -1,6 +1,6 @@
 <template>
   <div class="technical-profile">
-    <h3 class="cm-section-title">Technical Profile</h3>
+    <h3 v-if="title" class="cm-section-title">{{ title }}</h3>
     <a-table
       :columns="columns"
       :data-source="tableData"
@@ -9,9 +9,10 @@
       rowKey="id"
       :pagination="false"
     >
-      <span slot="category" slot-scope="category">
-        {{ getI18N(category, "techCategory") }}
-      </span>
+      <span slot="categoryTitle"> {{$t("text.category")}}</span>
+      <span slot="labelsText"> {{$t("text.labels")}}</span>
+      <span slot="levelText"> {{$t("text.masterLevel")}}</span>
+      
       <span slot="labels" slot-scope="labels">
         <a-tag
           v-for="(tag, index) in labels"
@@ -38,21 +39,26 @@ import { TableDataRow } from "./technical-profile.model";
 import _ from "lodash";
 @Component({})
 export default class TechnicalProfileComponent extends Vue {
-  colors: string[] = ['red', 'green', "blue", 'pink', 'orange'];
+  colors: string[] = ["red", "green", "blue", "pink", "orange"];
   @Prop({
     type: Array,
   })
   items: TechProfileItem[];
 
+  @Prop({
+    type: String,
+    default: "Technical Profile",
+  })
+  title: string;
+
   columns: Partial<Column>[] = [
     {
-      title: "Category",
       dataIndex: "category",
       key: "category",
-      scopedSlots: { customRender: "category" },
+      slots: { title: 'categoryTitle' },
       customRender: (value: string, row: TableDataRow): any => {
         const obj = {
-          children: value,
+          children: this.getI18N(value, "techCategory"),
           attrs: {
             rowSpan: row.rowSpan ?? 1,
           },
@@ -61,15 +67,15 @@ export default class TechnicalProfileComponent extends Vue {
       },
     },
     {
-      title: "Labels",
       dataIndex: "labels",
       key: "labels",
+      slots: { title: 'labelsText' },
       scopedSlots: { customRender: "labels" },
     },
     {
-      title: "Level",
       dataIndex: "level",
       key: "level",
+      slots: { title: 'levelText' },
       scopedSlots: { customRender: "level" },
     },
   ];

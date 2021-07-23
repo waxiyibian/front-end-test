@@ -1,66 +1,59 @@
 <template>
-  <div class="home w-100-p">
-    <header class="header w-100-p">
-      <div class="header-content flex jc-sb">
-        <nav class="nav flex">
-          <a class="nav-item" href="/">Resume</a>
-          <a class="nav-item" href="">Q&amp;A</a>
-        </nav>
-        <div class="header-right flex ai-c">
-          <a-radio-group v-model="locale">
-            <a-radio-button
-              v-for="item in locales"
-              :value="item.value"
-              :key="item.value"
-            >
-              {{ item.label }}
-            </a-radio-button>
-          </a-radio-group>
-        </div>
-      </div>
-    </header>
+  <div class="resume-page w-100-p page-style">
+    <page-header></page-header>
     <aside class="aside">
-      <a-anchor :affix="false">
+      <a-anchor :affix="false" class="p-10" @click="preventDefault($event)">
         <a-anchor-link
-          href="#components-anchor-demo-basic"
-          title="Basic demo"
+          href="#basic_profile"
+          :title="$t('text.basicProfile')"
         />
         <a-anchor-link
-          href="#components-anchor-demo-static"
-          title="Static demo"
+          href="#technical_profile"
+          :title="$t('text.technicalProfile')"
         />
         <a-anchor-link
-          href="#components-anchor-demo-basic"
-          title="Basic demo with Target"
-          target="_blank"
+          href="#working_experience"
+          :title="$t('text.workingExperience')"
+        />
+        <a-anchor-link
+          href="#education_history"
+          :title="$t('text.educationHistory')"
         />
       </a-anchor>
     </aside>
     <article class="article">
-      <a-back-top>
-        <div class="ant-back-top-inner">TOP</div>
+      <a-back-top class="back-top">
+        <div class="back-top-inner">TOP</div>
       </a-back-top>
-      <section>
+      <section id="basic_profile">
         <!-- Basic -->
-        <basic-profile :profile="profile && profile.basic"></basic-profile>
+        <basic-profile
+          :title="$t('text.basicProfile')"
+          :profile="profile && profile.basic"
+        ></basic-profile>
       </section>
-      <section>
+      <section id="technical_profile">
         <!-- Technical -->
         <technical-profile
+          :title="$t('text.technicalProfile')"
           :items="profile && profile.technical"
         ></technical-profile>
       </section>
-      <section>
+      <section id="working_experience">
         <!-- Working Exprience -->
-        <working-experience :items="profile && profile.workingExpr"></working-experience>
+        <working-experience
+          :title="$t('text.workingExperience')"
+          :items="profile && profile.workingExpr"
+        ></working-experience>
       </section>
-      <section>
-        <h3 class="cm-section-title">Education History</h3>
-        <div class="flex">
-          <a-icon type="setting" />
-        </div>
+      <section id="education_history">
+        <!-- Education History -->
+        <education-history
+          :items="profile && profile.education"
+        ></education-history>
       </section>
     </article>
+    <footer class="footer">{{$t('text.thisIsAFooter')}}</footer>
   </div>
 </template>
 
@@ -72,26 +65,23 @@ import { APIUtils } from "@/services/api/api";
 import BasicProfileComponent from "./components/BasicProfile.vue";
 import TechnicalProfileComponent from "./components/TechnicalProfile.vue";
 import WorkingExperienceComponent from "./components/WorkingExperience.vue";
+import EducationHistoryComponent from "./components/EducationHistory.vue";
+import PageHeader from "../components/PageHeader.vue";
+import { AppStoreModule } from "@/store/modules/app/app";
 
 @Component({
   components: {
+    PageHeader,
     BasicProfile: BasicProfileComponent,
     TechnicalProfile: TechnicalProfileComponent,
     WorkingExperience: WorkingExperienceComponent,
+    EducationHistory: EducationHistoryComponent,
   },
 })
 export default class Home extends Vue {
-  locale: Lang = "en";
-  locales = [
-    {
-      label: "English",
-      value: "en",
-    },
-    {
-      label: "中文",
-      value: "zh",
-    },
-  ];
+  get locale(): Lang {
+    return AppStoreModule.lang;
+  }
   profiles: Locale<Profile> | null = null;
 
   get profile(): Profile {
@@ -103,43 +93,42 @@ export default class Home extends Vue {
       this.profiles = rep.data;
     });
   }
+
+  preventDefault(event: MouseEvent): void {
+    event?.preventDefault();
+  }
 }
 </script>
 <style lang="scss" scoped>
-.home {
-  .header {
-    background: rgba(82, 196, 26, 0.7);;
-    .header-content {
-      width: 960px;
-      margin: 0 auto;
-      .nav {
-        .nav-item {
-          font-size: 20px;
-          padding: 10px 20px;
-          line-height: 2;
-          color: #fff;
-
-          &:hover,
-          &.active {
-            background: rgba(82, 196, 26, 0.5);
-          }
-        }
-      }
-      .header-right {
+.resume-page {
+  
+  .back-top {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    background: #fff;
+    border: 1px solid #999;
+    border-radius: 5px;
+    font-weight: bold;
+    
+    .back-top-inner {
+      color: #333;
+      transition: all .4s;
+    }
+    &:hover {
+      .back-top-inner {
+        color: rgba($color: #333, $alpha: 0.6);
       }
     }
   }
 
   .aside {
     position: fixed;
-    left: calc((100% - 1024px) / 2);
+    left: calc((100% - 786px) / 2);
     top: 200px;
     transform: translateX(-100%);
     padding-right: 20px;
-  }
-  .article {
-    width: 960px;
-    margin: 0 auto;
   }
 }
 </style>

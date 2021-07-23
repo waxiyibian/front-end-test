@@ -8,8 +8,14 @@
 .ai-c {
     align-items: center;
 }
+.jc-c {
+    justify-content: center;
+}
 .jc-sb {
     justify-content: space-between;
+}
+.fd-c {
+    flex-direction: column;
 }
 
 // width
@@ -19,6 +25,19 @@
 //margin
 .ml-10 {
     margin-left: 10px;
+}
+.mt-20 {
+    margin-top: 20px;
+}
+.mb-20 {
+    margin-bottom: 20px;
+}
+// padding
+.p-10 {
+    padding: 10px;
+}
+.pt-20 {
+    padding-top: 20px;
 }
 //font
 .fw-b {

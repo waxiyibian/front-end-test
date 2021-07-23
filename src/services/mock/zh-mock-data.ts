@@ -1,8 +1,9 @@
 import { Gender, Profile } from "@/model/profile.model";
+import { QNAItem } from "@/model/QNA.module";
 import tech from "./data/technical-profile";
 const avatar = require("@/assets/img/avatar.jpg");
 
-const profile: Profile = {
+export const zhProfile: Profile = {
   basic: {
     name: "郑伟斌/Weibin.Zheng",
     gender: Gender.Male,
@@ -47,4 +48,22 @@ const profile: Profile = {
     },
   ],
 };
-export default profile;
+
+export const zhQNA: QNAItem[] = [
+{
+  question: "简单做个自我介绍",
+  answer: "你好，我是有一年工作经验的前端开发工程师，立志成为一个出色的计算机科学与技术领域的人才，平凡但不普通，志向远大、有清晰规划但又脚踏实地的青年人。"
+},
+{
+  question: "优势与不足",
+  answer: "我的不足是资历尚浅，技术的深度和广度还有很大提升空间。我的优势是学习能力比较强，工作能力也强，有责任心和求知欲。"
+},
+{
+  question: "职业规划",
+  answer: "我计划在接下来的几年中在打好基础的前提上深耕前端，同时也学习一些后端开发、大数据和网络安全方面的技术和知识。未来十年的职业路线依次为前端开发、全栈开发、架构师、领域专家。"
+},
+{
+  question: "最近的小目标",
+  answer: "学更多的知识，既是为了让自己开心也为未来做准备。多挣一点钱，解决物质层面的后顾之忧。",
+},
+];

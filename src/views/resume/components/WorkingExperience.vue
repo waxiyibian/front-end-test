@@ -1,12 +1,12 @@
 <template>
   <div class="working-exprience">
-    <h3 class="cm-section-title">Working Exprience</h3>
+    <h3 v-if="title" class="cm-section-title">{{ title }}</h3>
     <a-timeline>
       <a-timeline-item v-for="(item, index) in items" :key="index">
         <p class="para-header fw-b">
           <span class="time-section"
-            >{{ $t("from") }} {{ item.startTime }} {{ $t("to") }}
-            {{ item.endTime || $t("now") }}</span
+            >{{ $t("text.from") }} {{ item.startTime }} {{ $t("text.to") }}
+            {{ item.endTime || $t("text.now") }}</span
           >
           <span class="company-name ml-10">{{ item.companyName }}</span>
           <span class="job-title ml-10">{{ item.jobTitle }}</span>
@@ -30,6 +30,12 @@ export default class WorkingExperienceComponent extends Vue {
     default: (): any => [],
   })
   items: WorkingExprItem[];
+
+  @Prop({
+    type: String,
+    default: "Working Experience",
+  })
+  title: string;
 
   public getLines(str: string): string[] {
     const spaceReg = /^\s+$/;

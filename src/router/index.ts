@@ -10,10 +10,14 @@ const routes: Array<RouteConfig> = [
     component: () => import("../views/resume/Resume.vue"),
   },
   {
-    path: "/about",
-    name: "About",
-    component: () => import("../views/About.vue"),
+    path: "/QNA",
+    name: "QNA",
+    component: () => import("../views/QNA.vue"),
   },
+  {
+    path: "*",
+    redirect: "/",
+  }
 ];
 
 const router = new VueRouter({

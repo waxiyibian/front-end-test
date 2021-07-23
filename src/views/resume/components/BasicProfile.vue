@@ -2,30 +2,30 @@
   <div class="basic-profile">
     <a-descriptions bordered size="middle" :column="2">
       <template v-slot:title>
-        <h3 class="cm-section-title">Basic Profile</h3>
+        <h3 v-if="title" class="cm-section-title">{{ title }}</h3>
       </template>
-      <a-descriptions-item label="Name">
+      <a-descriptions-item :label="upper($t('text.name'))">
         {{ (profile && profile.name) || "" }}
       </a-descriptions-item>
-      <a-descriptions-item label="Gender">
+      <a-descriptions-item :label="upper($t('text.gender'))">
         <span v-if="profile">{{ $t("gender." + profile.gender) || "" }}</span>
       </a-descriptions-item>
-      <a-descriptions-item label="Avatar">
+      <a-descriptions-item :label="upper($t('text.avatar'))">
         <a-avatar
           v-if="profile && profile.avatar"
           shape="square"
           size="large"
           :src="profile.avatar"
-          alt="头像"
+          :alt="$t('text.avatar')"
         />
       </a-descriptions-item>
-      <a-descriptions-item label="Telephone">
+      <a-descriptions-item :label="upper($t('text.telephone'))">
         {{ (profile && profile.phone) || "" }}
       </a-descriptions-item>
-      <a-descriptions-item label="Email">
+      <a-descriptions-item :label="upper($t('text.email'))">
         {{ (profile && profile.email) || "" }}
       </a-descriptions-item>
-      <a-descriptions-item label="Address">
+      <a-descriptions-item :label="upper($t('text.address'))">
         {{ (profile && profile.address) || "" }}
       </a-descriptions-item>
     </a-descriptions>
@@ -44,5 +44,25 @@ export default class BasicProfileComponent extends Vue {
     default: null,
   })
   profile: BasicProfile;
+  @Prop({
+    type: String,
+    default: "Basic Profile",
+  })
+  title: string;
+
+  upper(str: string): string {
+    if (typeof str !== "string") return str;
+    return `${str[0]?.toUpperCase() ?? ""}${str.slice(1)?.toLowerCase() ?? ""}`;
+  }
 }
 </script>
+<style lang="scss" scoped>
+.basic-profile {
+  /deep/ {
+    .ant-descriptions-title {
+      margin-bottom: 0;
+    }
+  }
+  
+}
+</style>
