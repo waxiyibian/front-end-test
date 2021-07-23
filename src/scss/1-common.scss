@@ -1,0 +1,29 @@
+// flex
+.flex {
+    display: flex;
+}
+.f-1 {
+    flex: 1;
+}
+.ai-c {
+    align-items: center;
+}
+.jc-sb {
+    justify-content: space-between;
+}
+
+// width
+.w-100-p {
+    width: 100%;
+}
+//margin
+.ml-10 {
+    margin-left: 10px;
+}
+//font
+.fw-b {
+    font-weight: bold;
+}
+
+// import
+@import "./2.component.scss";
